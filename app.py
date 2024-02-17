@@ -3,10 +3,12 @@ from models.user import User
 from database import db
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 import bcrypt
+from flask_migrate import Migrate
 
 app = Flask(__name__)
+migrate = Migrate(app, db)
 app.config['SECRET_KEY'] = "your_secret_key"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql:///root:admin123@127.0.0.1:3306/flask-crud'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:admin@127.0.0.1:5432/flask-crud'
 
 login_manager = LoginManager()
 db.init_app(app)
@@ -53,7 +55,8 @@ def create_user():
     user = User(username=username, password=hashed_password, role='user')
     db.session.add(user)
     db.session.commit()
-    return jsonify({"message": "Usuario cadastrado com sucesso"})
+    return jsonify({"message": "Usuario cadastrado com sucesso", "id": user.id})
+
 
   return jsonify({"message": "Dados invalidos"}), 400
 

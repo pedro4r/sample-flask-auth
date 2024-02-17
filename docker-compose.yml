@@ -1,16 +1,11 @@
+version: '3'
 services:
   db:
-    image: mysql:latest
+    image: postgres:latest
     restart: always
     environment:
-      MYSQL_USER: 'admin'
-      MYSQL_PASSWORD: 'admin123'
-      MYSQL_DATABASE: 'flask-crud'
-      MYSQL_ROOT_PASSWORD: 'admin123'
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_DB: 'flask-crud'
     ports:
-      - "3306:3306"
-    expose:
-      # Opens port 3306 on the container
-      - '3306'
-    volumes:
-      - /Users/gabrielcasemiro/Desktop/Rocketseat/mysql:/var/lib/mysql
+      - "5432:5432"
